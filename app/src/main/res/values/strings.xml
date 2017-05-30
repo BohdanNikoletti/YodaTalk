@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">YodaTalk</string>
+    <string name="send_button">Speak like Yoda</string>
+</resources>
