@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">YodaTalk</string>
     <string name="send_button">Speak like Yoda</string>
+    <string name="network_unavailable">Can not access network!</string>
+    <string name="wrong_input">Sentence must be at least 3 English words length!</string>
 </resources>
