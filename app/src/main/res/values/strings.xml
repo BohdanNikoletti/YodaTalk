@@ -3,4 +3,9 @@
     <string name="send_button">Speak like Yoda</string>
     <string name="network_unavailable">Can not access network!</string>
     <string name="wrong_input">Sentence must be at least 3 English words length!</string>
+    <string name="progress_dialog_tittle">Yoda is thinking</string>
+    <string name="progress_dialog_body">Yoda need some time to generate quote from your text</string>
+    <string name="yoda_answer_hint">From Yoda sentence interpreted here will be </string>
+    <string name="yoda_avatar">Yoda avatar</string>
+    <string name="share_button">Share button</string>
 </resources>
