@@ -8,14 +8,8 @@ import android.os.Bundle
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
-import com.github.kittinunf.fuel.httpGet
-import com.github.kittinunf.result.Result
-import com.github.kittinunf.result.getAs
 import kotlinx.android.synthetic.main.activity_main.*
-import android.content.Context.CONNECTIVITY_SERVICE
 import android.content.Intent
-import android.net.NetworkInfo
-import android.widget.ShareActionProvider
 import android.widget.Toast
 
 
@@ -43,10 +37,11 @@ class MainActivity : AppCompatActivity() {
                     progressDialog = ProgressDialog.show(this@MainActivity,
                             getString(R.string.progress_dialog_tittle),
                             getString(R.string.progress_dialog_body), true)
-                    Fuel.get("$userSentence").responseString { request, response, result ->
+                    Fuel.get(userSentence.toString().replace("\n","")).responseString { _, response, result ->
                         result.fold({ serverData ->
+                            Log.v(LOG_TAG, response.toString())
                             progressDialog.dismiss()
-                            generatedSentence.text = serverData
+                            generatedSentence.text = serverData.replace("/","")// To remove random \ symbol
                         }, { err ->
                             progressDialog.dismiss()
                             Toast.makeText(applicationContext,  "Response with error ${err.message}",
@@ -71,9 +66,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun inputIsValid(text: String): Boolean{
-        val sentenceRegEx  = Regex("[A-Za-z,;'\"\\s]+$")
+        val sentenceRegEx  = Regex("[A-Za-z -.;!?]+$")
         val splitRegEx = Regex("[ -.;!?]+")
         if(sentenceRegEx.matchEntire(text) ==  null){ return false }
+        val spleted = text.split(splitRegEx)
         val sentenceLength = text.split(splitRegEx).size
         if(sentenceLength < 3){return false}
         return true
@@ -81,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     private fun shareYodaSentence(sentence: String){
         val shareIntent: Intent = Intent(android.content.Intent.ACTION_SEND)
         shareIntent.type ="text/plain"
-        shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Yoda quote")
+        shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Answer from Yoda")
         shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, sentence)
         startActivity(Intent.createChooser(shareIntent,"Share via"))
     }
