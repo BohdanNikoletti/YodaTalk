@@ -37,9 +37,8 @@ class MainActivity : AppCompatActivity() {
                     progressDialog = ProgressDialog.show(this@MainActivity,
                             getString(R.string.progress_dialog_tittle),
                             getString(R.string.progress_dialog_body), true)
-                    Fuel.get(userSentence.toString().replace("\n","")).responseString { _, response, result ->
+                    Fuel.get(userSentence.toString().replace("\n","")).responseString { _, _, result ->
                         result.fold({ serverData ->
-                            Log.v(LOG_TAG, response.toString())
                             progressDialog.dismiss()
                             generatedSentence.text = serverData.replace("/","")// To remove random \ symbol
                         }, { err ->
