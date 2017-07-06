@@ -68,7 +68,6 @@ class MainActivity : AppCompatActivity() {
         val sentenceRegEx  = Regex("[A-Za-z -.;!?]+$")
         val splitRegEx = Regex("[ -.;!?]+")
         if(sentenceRegEx.matchEntire(text) ==  null){ return false }
-        val spleted = text.split(splitRegEx)
         val sentenceLength = text.split(splitRegEx).size
         if(sentenceLength < 3){return false}
         return true
